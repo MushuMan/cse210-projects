@@ -27,6 +27,4 @@ abstract class Tile
     {
         return _walkable;
     }
-
-    public abstract void renderTile();
 }

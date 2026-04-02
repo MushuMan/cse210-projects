@@ -4,9 +4,4 @@ class FloorTile : Tile
     {
         
     }
-
-    public override void renderTile()
-    {
-        
-    }
 }

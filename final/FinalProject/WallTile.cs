@@ -4,9 +4,4 @@ class WallTile : Tile
     {
         
     }
-
-    public override void renderTile()
-    {
-        
-    }
 }
