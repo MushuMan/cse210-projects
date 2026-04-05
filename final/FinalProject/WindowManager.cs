@@ -10,25 +10,26 @@ class WindowManager
     private Maze _maze;
     private CharacterTile _character;
     private InputHandler _input;
+    private bool _gameFinished;
 
-    public WindowManager(int width, int height)
+    public WindowManager(int mazeWidth, int mazeHeight)
     {
-        _windowWidth = width;
-        _windowHeight = height;
         _tileSize = 25;
+        _windowWidth = mazeWidth * _tileSize + 10;
+        _windowHeight = mazeHeight * _tileSize + 10;
     }
 
-    public void renderMaze()
+    public void RenderMaze()
     {
-        Dictionary<(int, int), Tile> walls = _maze.getWalls();
-        Dictionary<(int, int), Tile> floors = _maze.getFloors();
+        Dictionary<(int, int), Tile> walls = _maze.GetWalls();
+        Dictionary<(int, int), Tile> floors = _maze.GetFloors();
 
         foreach (var ((x, y), tile) in floors)
         {
             int rectX = x * _tileSize + 5;
             int rectY = y * _tileSize + 5;
 
-            if ((x, y) == _maze.getFinish())
+            if ((x, y) == _maze.GetFinish())
             {
                 Raylib.DrawRectangle(rectX, rectY, _tileSize, _tileSize, Color.Red);
             }
@@ -47,10 +48,10 @@ class WindowManager
         }
     }
 
-    public void renderCharacter()
+    public void RenderCharacter()
     {
-        int x = _character.getX();
-        int y = _character.getY();
+        int x = _character.GetX();
+        int y = _character.GetY();
 
         x = x * _tileSize + 5;
         y = y * _tileSize + 5;
@@ -58,37 +59,43 @@ class WindowManager
         Raylib.DrawRectangle(x, y, _tileSize, _tileSize, Color.Green);
     }
 
-    public void startWindow()
+    public void StartWindow()
     {
+        _gameFinished = false;
         Raylib.InitWindow(_windowWidth, _windowHeight, "MazeGame");
         Raylib.SetTargetFPS(60);
 
-        while (!Raylib.WindowShouldClose())
+        while (!Raylib.WindowShouldClose() && !_gameFinished)
         {
-            _input.handleMovement(_character, _maze.getWalls());
+            _input.HandleMovement(_character, _maze.GetWalls());
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.Black);
 
-            renderMaze();
-            renderCharacter();
+            RenderMaze();
+            RenderCharacter();
 
             Raylib.EndDrawing();
+
+            if (_maze.GetFinish() == (_character.GetX(), _character.GetY()))
+            {
+                _gameFinished = true;
+            }
         }
 
         Raylib.CloseWindow();
     }
 
-    public void setMaze(Maze maze)
+    public void SetMaze(Maze maze)
     {
         _maze = maze;
     }
 
-    public void getCharacter(CharacterTile character)
+    public void SetCharacter(CharacterTile character)
     {
         _character = character;
     }
 
-    public void getInput(InputHandler input)
+    public void SetInput(InputHandler input)
     {
         _input = input;
     }

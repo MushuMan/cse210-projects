@@ -1,8 +1,15 @@
+using System.Text.Json.Serialization;
+
 class UserProfile
 {
+    [JsonInclude]
     private string _username;
-    private float _bestTime;
+    [JsonInclude]
+    private double _bestTime;
+    [JsonInclude]
     private int _bestMoves;
+
+    public UserProfile() {}
 
     public UserProfile(string username)
     {
@@ -11,13 +18,26 @@ class UserProfile
         _bestMoves = 0;
     }
 
-    public void updateScore(float time, int moves)
+    public void UpdateScore(double time, int moves)
     {
-        
+        if (time < _bestTime || _bestTime == 0)
+        {
+            _bestTime = time;
+        }
+
+        if (moves < _bestMoves || _bestMoves == 0)
+        {
+            _bestMoves = moves;
+        }
     }
 
-    public string getScore()
+    public string GetScore()
     {
-        return "";
+        return $"Best Time: {_bestTime} seconds  |  Best Moves: {_bestMoves}";
+    }
+
+    public string GetName()
+    {
+        return _username;
     }
 }

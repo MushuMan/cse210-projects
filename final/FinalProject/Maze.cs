@@ -30,10 +30,10 @@ class Maze
         _finish = (0, 0);
         _maxDepth = 0;
 
-        generateMaze();
+        GenerateMaze();
     }
 
-    private void generateMaze()
+    private void GenerateMaze()
     {
         for (int x = 0; x < _width; x++)
         {
@@ -49,13 +49,13 @@ class Maze
 
         _walls.Remove(_start);
 
-        generateMazeDFS(_start.x, _start.y, _maxDepth);
+        GenerateMazeDFS(_start.x, _start.y, _maxDepth);
     }
 
-    private void generateMazeDFS(int x, int y, int depth)
+    private void GenerateMazeDFS(int x, int y, int depth)
     {
         List<(int dx, int dy)> directions = new List<(int, int)>(_generationDirections);
-        shuffleDirections(directions);
+        ShuffleDirections(directions);
 
         foreach (var (dx, dy) in directions)
         {
@@ -77,13 +77,13 @@ class Maze
                         _maxDepth = depth + 1;
                         _finish = (nx, ny);
                     }
-                    generateMazeDFS(nx, ny, depth + 1);
+                    GenerateMazeDFS(nx, ny, depth + 1);
                 }
             }
         }
     }
 
-    private void shuffleDirections(List<(int, int)> list)
+    private void ShuffleDirections(List<(int, int)> list)
     {
         Random rand = new Random();
         for (int i = 0; i < list.Count; i++)
@@ -93,17 +93,17 @@ class Maze
         }
     }
 
-    public Dictionary<(int, int), Tile> getWalls()
+    public Dictionary<(int, int), Tile> GetWalls()
     {
         return _walls;
     }
 
-    public Dictionary<(int, int), Tile> getFloors()
+    public Dictionary<(int, int), Tile> GetFloors()
     {
         return _floors;
     }
 
-    public (int x, int y) getFinish()
+    public (int x, int y) GetFinish()
     {
         return _finish;
     }

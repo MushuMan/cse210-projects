@@ -13,8 +13,11 @@ class CharacterTile : Tile
         _mazeHeight = mazeHeight;
     }
 
-    public void move(int dx, int dy, Dictionary<(int, int), Tile> wallTiles)
+    public void Move(int dx, int dy, Dictionary<(int, int), Tile> wallTiles)
     {
+        int lastX = _x;
+        int lastY = _y;
+
         if (wallTiles.ContainsKey((_x + dx, _y + dy)))
         {
             return;
@@ -40,10 +43,13 @@ class CharacterTile : Tile
             _y = _mazeHeight - 1;
         }
 
-        _moves += 1;
+        if (_x != lastX || _y != lastY)
+        {
+            _moves += 1;
+        }
     }
 
-    public int getMoves()
+    public int GetMoves()
     {
         return _moves;
     }

@@ -13,17 +13,17 @@ abstract class Tile
         _walkable = walkable;
     }
 
-    public int getX()
+    public int GetX()
     {
         return _x;
     }
 
-    public int getY()
+    public int GetY()
     {
         return _y;
     }
 
-    public bool isWalkable()
+    public bool IsWalkable()
     {
         return _walkable;
     }

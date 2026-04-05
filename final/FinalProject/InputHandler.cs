@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class InputHandler
 {
-    private (int dx, int dy) processInput()
+    private (int dx, int dy) ProcessInput()
     {
         int dx = 0;
         int dy = 0;
@@ -28,9 +28,9 @@ class InputHandler
         return (dx, dy);
     }
 
-    public void handleMovement(CharacterTile character, Dictionary<(int, int), Tile> wallTiles)
+    public void HandleMovement(CharacterTile character, Dictionary<(int, int), Tile> wallTiles)
     {
-        (int dx, int dy) = processInput();
-        character.move(dx, dy, wallTiles);
+        (int dx, int dy) = ProcessInput();
+        character.Move(dx, dy, wallTiles);
     }
 }
