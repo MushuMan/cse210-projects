@@ -19,7 +19,7 @@ class WindowManager
         _windowHeight = mazeHeight * _tileSize + 10;
     }
 
-    public void RenderMaze()
+    private void RenderMaze()
     {
         Dictionary<(int, int), Tile> walls = _maze.GetWalls();
         Dictionary<(int, int), Tile> floors = _maze.GetFloors();
@@ -48,7 +48,7 @@ class WindowManager
         }
     }
 
-    public void RenderCharacter()
+    private void RenderCharacter()
     {
         int x = _character.GetX();
         int y = _character.GetY();
